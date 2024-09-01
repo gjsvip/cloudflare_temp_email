@@ -1,6 +1,62 @@
 <!-- markdownlint-disable-file MD004 MD024 MD034 MD036 -->
 # CHANGE LOG
 
+## v0.7.5
+
+- fix: 修复 `name` 的校验检查
+
+## v0.7.4
+
+- feat: UI 列表页面增加最小宽度
+- fix: 修复 `name` 的校验检查
+- fix: 修复 `DEFAULT_DOMAINS` 配置为空不生效的问题
+
+## v0.7.3
+
+- feat: worker 增加 `ADDRESS_CHECK_REGEX`, address name 的正则表达式, 只用于检查，符合条件将通过检查
+- fix: UI 修复登录页面 tab 激活图标错位
+- fix: UI 修复 admin 页面刷新弹框输入密码的问题
+- feat: support `Oath2` 登录, 可以通过 `Github` `Authentik` 等第三方登录, 详情查看 [OAuth2 第三方登录](https://temp-mail-docs.awsl.uk/zh/guide/feature/user-oauth2.html)
+
+## v0.7.2
+
+### Breaking Changes
+
+`webhook` 的结构增加了 `enabled` 字段，已经配置了的需要重新在页面开启并保存。
+
+### Changes
+
+- fix: worker 增加 `NO_LIMIT_SEND_ROLE` 配置, 加载失败的问题
+- feat: worker 增加 `# ADDRESS_REGEX = "[^a-z.0-9]"` 配置, 替换非法符号的正则表达式，如果不设置，默认为 [^a-z0-9], 需谨慎使用, 有些符号可能导致无法收件
+- feat: worker 优化 webhook 逻辑, 支持 admin 配置全局 webhook, 添加 `message pusher` 集成示例
+
+## v0.7.1
+
+- fix: 修复用户角色加载失败的问题
+- feat: admin 账号设置增加来源邮件地址黑名单配置
+
+## v0.7.0
+
+### Breaking Changes
+
+DB changes: 增加用户 `passkey` 表, 需要执行 `db/2024-08-10-patch.sql` 更新 `D1` 数据库
+
+### Changes
+
+- Docs: Update new-address-api.md (#360)
+- feat: worker 增加 `ADMIN_USER_ROLE` 配置, 用于配置管理员用户角色，此角色的用户可访问 admin 管理页面 (#363)
+- feat: worker 增加 `DISABLE_SHOW_GITHUB` 配置, 用于配置是否显示 github 链接
+- feat: worker 增加 `NO_LIMIT_SEND_ROLE` 配置, 用于配置可以无限发送邮件的角色
+- feat: 用户增加 `passkey` 登录方式, 用于用户登录, 无需输入密码
+- feat: worker 增加 `DISABLE_ADMIN_PASSWORD_CHECK` 配置, 用于配置是否禁用 admin 控制台密码检查, 若你的网站只可私人访问，可通过此禁用检查
+
+## v0.6.1
+
+- pages github actions && 修复清理邮件天数为 0 不生效 by @tqjason (#355)
+- fix: imap proxy server 不支持 密码 by @dreamhunter2333 (#356)
+- worker 新增 `ANNOUNCEMENT` 配置, 用于配置公告信息 by @dreamhunter2333 (#357)
+- fix: telegram bot 新建地址默认选择第一个域名 by @dreamhunter2333 (#358)
+
 ## v0.6.0
 
 ### Breaking Changes

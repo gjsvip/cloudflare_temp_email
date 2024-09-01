@@ -14,37 +14,37 @@ const props = defineProps({
   enableUserDeleteEmail: {
     type: Boolean,
     default: false,
-    requried: false
+    required: false
   },
   showEMailTo: {
     type: Boolean,
     default: true,
-    requried: false
+    required: false
   },
   fetchMailData: {
     type: Function,
     default: () => { },
-    requried: true
+    required: true
   },
   deleteMail: {
     type: Function,
     default: () => { },
-    requried: false
+    required: false
   },
   showReply: {
     type: Boolean,
     default: false,
-    requried: false
+    required: false
   },
   showSaveS3: {
     type: Boolean,
     default: false,
-    requried: false
+    required: false
   },
   saveToS3: {
     type: Function,
     default: (mail_id, filename, blob) => { },
-    requried: false
+    required: false
   },
 })
 
@@ -147,6 +147,7 @@ const refresh = async () => {
     const { results, count: totalCount } = await props.fetchMailData(
       pageSize.value, (page.value - 1) * pageSize.value
     );
+    loading.value = true;
     data.value = await Promise.all(results.map(async (item) => {
       item.checked = false;
       return await processItem(item);
@@ -161,6 +162,8 @@ const refresh = async () => {
   } catch (error) {
     message.error(error.message || "error");
     console.error(error);
+  } finally {
+    loading.value = false;
   }
 };
 

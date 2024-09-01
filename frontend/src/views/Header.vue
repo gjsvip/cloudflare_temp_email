@@ -17,8 +17,8 @@ import { getRouterPathWithLang } from '../utils'
 const message = useMessage()
 
 const {
-    toggleDark, isDark, isTelegram,
-    showAuth, adminAuth, auth, loading, openSettings
+    toggleDark, isDark, isTelegram, showAdminPage,
+    showAuth, auth, loading, openSettings, userSettings
 } = useGlobalState()
 const route = useRoute()
 const router = useRouter()
@@ -134,7 +134,7 @@ const menuOptions = computed(() => [
                 icon: () => h(NIcon, { component: AdminPanelSettingsFilled }),
             }
         ),
-        show: !!adminAuth.value,
+        show: showAdminPage.value,
         key: "admin"
     },
     {
@@ -192,6 +192,7 @@ const menuOptions = computed(() => [
                 icon: () => h(NIcon, { component: GithubAlt })
             }
         ),
+        show: openSettings.value?.showGithub,
         key: "github"
     }
 ]);
@@ -223,6 +224,8 @@ const logoClick = async () => {
 
 onMounted(async () => {
     await api.getOpenSettings(message);
+    // make sure user_id is fetched
+    if (!userSettings.value.user_id) await api.getUserSettings(message);
 });
 </script>
 
@@ -257,7 +260,7 @@ onMounted(async () => {
         <n-modal v-model:show="showAuth" :closable="false" :closeOnEsc="false" :maskClosable="false" preset="dialog"
             :title="t('accessHeader')">
             <p>{{ t('accessTip') }}</p>
-            <n-input v-model:value="auth" type="textarea" :autosize="{ minRows: 3 }" />
+            <n-input v-model:value="auth" type="password" show-password-on="click" />
             <template #action>
                 <n-button :loading="loading" @click="authFunc" type="primary">
                     {{ t('ok') }}

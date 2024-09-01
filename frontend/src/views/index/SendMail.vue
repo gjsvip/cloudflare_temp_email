@@ -13,7 +13,7 @@ const isPreview = ref(false)
 const editorRef = shallowRef()
 
 
-const { settings, sendMailModel, indexTab } = useGlobalState()
+const { settings, sendMailModel, indexTab, userSettings } = useGlobalState()
 
 const { t } = useI18n({
     locale: 'zh',
@@ -136,6 +136,8 @@ const handleCreated = (editor) => {
 }
 
 onMounted(async () => {
+    // make sure user_id is fetched
+    if (!userSettings.value.user_id) await api.getUserSettings(message);
     await api.getSettings();
 })
 </script>
@@ -149,16 +151,15 @@ onMounted(async () => {
                     <n-button type="primary" tertiary @click="requestAccess" size="small">{{ t('requestAccess')
                         }}</n-button>
                 </n-alert>
-                <br />
                 <AdminContact />
             </div>
             <div v-else>
-                <n-alert type="info" :show-icon="false" :bordered="false">
+                <n-alert type="info" :show-icon="false" :bordered="false" closable>
                     {{ t('send_balance') }}: {{ settings.send_balance }}
                 </n-alert>
-                <div class="right">
+                <n-flex justify="end">
                     <n-button type="primary" @click="send">{{ t('send') }}</n-button>
-                </div>
+                </n-flex>
                 <div class="left">
                     <n-form :model="sendMailModel">
                         <n-form-item :label="t('fromName')" label-placement="top">
@@ -230,9 +231,7 @@ onMounted(async () => {
     justify-content: left;
 }
 
-.right {
-    text-align: right;
-    place-items: right;
-    justify-content: right;
+.n-alert {
+    margin-bottom: 10px;
 }
 </style>

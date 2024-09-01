@@ -45,12 +45,19 @@ node_compat = true
 # TITLE = "Custom Title" # 自定义网站标题
 PREFIX = "tmp" # 要处理的邮箱名称前缀，不需要后缀可配置为空字符串
 # (min, max) adderss的长度，如果不设置，默认为(1, 30)
+# ANNOUNCEMENT = "Custom Announcement" # 自定义公告
+# address name 的正则表达式, 只用于检查，符合条件将通过检查
+# ADDRESS_CHECK_REGEX = "^(?!.*admin).*"
+# address name 替换非法符号的正则表达式, 不在其中的符号将被替换，如果不设置，默认为 [^a-z0-9], 需谨慎使用, 有些符号可能导致无法收件
+# ADDRESS_REGEX = "[^a-z0-9]"
 # MIN_ADDRESS_LEN = 1
 # MAX_ADDRESS_LEN = 30
 # 如果你想要你的网站私有，取消下面的注释，并修改密码
 # PASSWORDS = ["123", "456"]
 # admin 控制台密码, 不配置则不允许访问控制台
 # ADMIN_PASSWORDS = ["123", "456"]
+# 警告: 管理员控制台没有密码或用户检查
+# DISABLE_ADMIN_PASSWORD_CHECK = false
 # admin 联系方式，不配置则不显示，可配置任意字符串
 # ADMIN_CONTACT = "xx@xx.xxx"
 # DEFAULT_DOMAINS = ["xxx.xxx1" , "xxx.xxx2"] # 默认用户可用的域名(未登录或未分配角色的用户)
@@ -59,6 +66,8 @@ DOMAINS = ["xxx.xxx1" , "xxx.xxx2"] # 你的域名, 支持多个域名
 # DOMAIN_LABELS = ["中文.xxx", "xxx.xxx2"]
 # 新用户默认角色, 仅在启用邮件验证时有效
 # USER_DEFAULT_ROLE = "vip"
+# admin 角色配置, 如果用户角色等于 ADMIN_USER_ROLE 则可以访问 admin 控制台
+# ADMIN_USER_ROLE = "admin" # the role which can access admin panel
 # 用户角色配置, 如果 domains 为空将使用 default_domains
 # 如果 prefix 为 null 将使用默认前缀, 如果 prefix 为空字符串将不使用前缀
 # USER_ROLES = [
@@ -77,13 +86,15 @@ ENABLE_AUTO_REPLY = false
 # ENABLE_WEBHOOK = true
 # 前端界面页脚文本
 # COPYRIGHT = "Dream Hunter"
+# DISABLE_SHOW_GITHUB = true # 是否显示 GitHub 链接
 # 默认发送邮件余额，如果不设置，将为 0
 # DEFAULT_SEND_BALANCE = 1
+# NO_LIMIT_SEND_ROLE = "vip" # 可以无限发送邮件的角色
 # Turnstile 人机验证配置
 # CF_TURNSTILE_SITE_KEY = ""
 # CF_TURNSTILE_SECRET_KEY = ""
 # telegram bot 最多绑定邮箱数量
-# TG_MAX_ACCOUNTS = 5
+# TG_MAX_ADDRESS = 5
 # 全局转发地址列表，如果不配置则不启用，启用后所有邮件都会转发到列表中的地址
 # FORWARD_ADDRESS_LIST = ["xxx@xxx.com"]
 

@@ -77,12 +77,19 @@ node_compat = true
 # TITLE = "Custom Title" # The title of the site
 PREFIX = "tmp" # The mailbox name prefix to be processed
 # (min, max) length of the adderss, if not set, the default is (1, 30)
+# ANNOUNCEMENT = "Custom Announcement"
+# address check REGEX, if not set, will not check
+# ADDRESS_CHECK_REGEX = "^(?!.*admin).*"
+# address name replace REGEX, if not set, the default is [^a-z0-9]
+# ADDRESS_REGEX = "[^a-z0-9]"
 # MIN_ADDRESS_LEN = 1
 # MAX_ADDRESS_LEN = 30
 # If you want your site to be private, uncomment below and change your password
 # PASSWORDS = ["123", "456"]
 # admin console password, if not configured, access to the console is not allowed
 # ADMIN_PASSWORDS = ["123", "456"]
+# warning: no password or user check for admin portal
+# DISABLE_ADMIN_PASSWORD_CHECK = false
 # admin contact information. If not configured, it will not be displayed. Any string can be configured.
 # ADMIN_CONTACT = "xx@xx.xxx"
 DEFAULT_DOMAINS = ["xxx.xxx1" , "xxx.xxx2"] # domain name for no role users
@@ -90,6 +97,7 @@ DOMAINS = ["xxx.xxx1" , "xxx.xxx2"] # all your domain name
 # For chinese domain name, you can use DOMAIN_LABELS to show chinese domain name
 # DOMAIN_LABELS = ["中文.xxx", "xxx.xxx2"]
 # USER_DEFAULT_ROLE = "vip" # default role for new users(only when enable mail verification)
+# ADMIN_USER_ROLE = "admin" # the role which can access admin panel
 # User roles configuration, if domains is empty will use default_domains, if prefix is null will use default prefix, if prefix is empty string will not use prefix
 # USER_ROLES = [
 #    { domains = ["xxx.xxx1" , "xxx.xxx2"], role = "vip", prefix = "vip" },
@@ -107,13 +115,15 @@ ENABLE_AUTO_REPLY = false
 # ENABLE_WEBHOOK = true
 # Footer text
 # COPYRIGHT = "Dream Hunter"
+# DISABLE_SHOW_GITHUB = true # Disable Show GitHub link
 # default send balance, if not set, it will be 0
 # DEFAULT_SEND_BALANCE = 1
+# NO_LIMIT_SEND_ROLE = "vip" # the role which can send emails without limit
 # Turnstile verification configuration
 # CF_TURNSTILE_SITE_KEY = ""
 # CF_TURNSTILE_SECRET_KEY = ""
 # telegram bot
-# TG_MAX_ACCOUNTS = 5
+# TG_MAX_ADDRESS = 5
 # global forward address list, if set, all emails will be forwarded to these addresses
 # FORWARD_ADDRESS_LIST = ["xxx@xxx.com"]
 

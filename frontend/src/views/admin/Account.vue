@@ -9,8 +9,8 @@ import { NButton, NMenu } from 'naive-ui';
 import { MenuFilled } from '@vicons/material'
 
 const {
-    adminAuth, showAdminAuth, loading,
-    adminTab, adminMailTabAddress, adminSendBoxTabAddress
+    loading, adminTab,
+    adminMailTabAddress, adminSendBoxTabAddress
 } = useGlobalState()
 const message = useMessage()
 
@@ -252,10 +252,6 @@ watch([page, pageSize], async () => {
 })
 
 onMounted(async () => {
-    if (!adminAuth.value) {
-        showAdminAuth.value = true;
-        return;
-    }
     await fetchData()
 })
 </script>
@@ -290,15 +286,17 @@ onMounted(async () => {
                 {{ t('query') }}
             </n-button>
         </n-input-group>
-        <div style="display: inline-block;">
-            <n-pagination v-model:page="page" v-model:page-size="pageSize" :item-count="count"
-                :page-sizes="[20, 50, 100]" show-size-picker>
-                <template #prefix="{ itemCount }">
-                    {{ t('itemCount') }}: {{ itemCount }}
-                </template>
-            </n-pagination>
+        <div style="overflow: auto;">
+            <div style="display: inline-block;">
+                <n-pagination v-model:page="page" v-model:page-size="pageSize" :item-count="count"
+                    :page-sizes="[20, 50, 100]" show-size-picker>
+                    <template #prefix="{ itemCount }">
+                        {{ t('itemCount') }}: {{ itemCount }}
+                    </template>
+                </n-pagination>
+            </div>
+            <n-data-table :columns="columns" :data="data" :bordered="false" embedded />
         </div>
-        <n-data-table :columns="columns" :data="data" :bordered="false" embedded />
     </div>
 </template>
 
@@ -306,5 +304,9 @@ onMounted(async () => {
 .n-pagination {
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+.n-data-table {
+    min-width: 1000px;
 }
 </style>

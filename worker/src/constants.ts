@@ -1,11 +1,12 @@
 export const CONSTANTS = {
-    VERSION: 'v0.6.0',
+    VERSION: 'v0.7.5',
 
     // DB settings
     ADDRESS_BLOCK_LIST_KEY: 'address_block_list',
     SEND_BLOCK_LIST_KEY: 'send_block_list',
     AUTO_CLEANUP_KEY: 'auto_cleanup',
     USER_SETTINGS_KEY: 'user_settings',
+    OAUTH2_SETTINGS_KEY: 'oauth2_settings',
     VERIFIED_ADDRESS_LIST_KEY: 'verified_address_list',
 
     // KV
@@ -13,4 +14,6 @@ export const CONSTANTS = {
     TG_KV_SETTINGS_KEY: "temp-mail-telegram-settings",
     WEBHOOK_KV_SETTINGS_KEY: "temp-mail-webhook-settings",
     WEBHOOK_KV_USER_SETTINGS_KEY: "temp-mail-webhook-user-settings",
+    EMAIL_KV_BLACK_LIST: "temp-mail-email-black-list",
+    WEBHOOK_KV_ADMIN_MAIL_SETTINGS_KEY: "temp-mail-webhook-admin-mail-settings",
 }

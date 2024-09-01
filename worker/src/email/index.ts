@@ -4,12 +4,13 @@ import { getEnvStringList } from "../utils";
 import { sendMailToTelegram } from "../telegram_api";
 import { Bindings, HonoCustomType } from "../types";
 import { auto_reply } from "./auto_reply";
-import { trigerWebhook } from "../mails_api/webhook_settings";
+import { isBlocked } from "./black_list";
+import { triggerWebhook } from "../common";
 
 
 async function email(message: ForwardableEmailMessage, env: Bindings, ctx: ExecutionContext) {
-    if (env.BLACK_LIST && env.BLACK_LIST.split(",").some(word => message.from.includes(word))) {
-        message.setReject("Missing from address");
+    if (await isBlocked(message.from, env)) {
+        message.setReject("Reject from address");
         console.log(`Reject message from ${message.from} to ${message.to}`);
         return;
     }
@@ -47,7 +48,7 @@ async function email(message: ForwardableEmailMessage, env: Bindings, ctx: Execu
 
     // send webhook
     try {
-        await trigerWebhook(
+        await triggerWebhook(
             { env: env } as Context<HonoCustomType>,
             message.to, rawEmail
         );
