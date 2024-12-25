@@ -260,7 +260,8 @@ export const commonParseMail = async (raw_mail: string | undefined | null): Prom
     sender: string,
     subject: string,
     text: string,
-    html: string
+    html: string,
+    headers?: Record<string, string>[]
 } | undefined> => {
     if (!raw_mail) {
         return undefined;
@@ -287,6 +288,7 @@ export const commonParseMail = async (raw_mail: string | undefined | null): Prom
             subject: parsedEmail.subject || "",
             text: parsedEmail.text || "",
             html: parsedEmail.html || "",
+            headers: parsedEmail.headers || [],
         };
     }
     catch (e) {
@@ -339,6 +341,7 @@ export async function sendWebhook(settings: WebhookSettings, formatMap: WebhookM
         );
         /* eslint-enable no-useless-escape */
     }
+    console.log("send webhook", settings.url, settings.method, settings.headers, body);
     const response = await fetch(settings.url, {
         method: settings.method,
         headers: JSON.parse(settings.headers),
@@ -354,7 +357,8 @@ export async function sendWebhook(settings: WebhookSettings, formatMap: WebhookM
 export async function triggerWebhook(
     c: Context<HonoCustomType>,
     address: string,
-    raw_mail: string
+    raw_mail: string,
+    message_id: string | null
 ): Promise<void> {
     if (!c.env.KV || !getBooleanValue(c.env.ENABLE_WEBHOOK)) {
         return
@@ -382,8 +386,14 @@ export async function triggerWebhook(
     if (webhookList.length === 0) {
         return
     }
+    const mailId = await c.env.DB.prepare(
+        `SELECT id FROM raw_mails where address = ? and message_id = ?`
+    ).bind(address, message_id).first<string>("id");
+
     const parsedEmail = await commonParseMail(raw_mail);
     const webhookMail = {
+        id: mailId || "",
+        url: c.env.FRONTEND_URL ? `${c.env.FRONTEND_URL}?mail_id=${mailId}` : "",
         from: parsedEmail?.sender || "",
         to: address,
         subject: parsedEmail?.subject || "",

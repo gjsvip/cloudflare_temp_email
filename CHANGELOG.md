@@ -1,6 +1,43 @@
 <!-- markdownlint-disable-file MD004 MD024 MD034 MD036 -->
 # CHANGE LOG
 
+## main(v0.8.3)
+
+- feat: |Github Action| 增加自动更新并部署功能
+
+## v0.8.2
+
+- fix: |Doc| 修复文档中的一些错误
+- fix: |Github Action| 修复 frontend 部署分支错误的问题
+- feat: admin 发送邮件功能
+- feat: admin 后台，账号配置页面添加无限发送邮件的地址列表
+
+## v0.8.1
+
+- feat: |Doc| 更新 UI 安装的文档
+- feat: |UI| 对用户隐藏邮箱账号的 ID
+- feat: |UI| 增加邮件详情页的 `转发` 按钮
+
+## v0.8.0
+
+- feat: |UI| 随机生成地址时不超过最大长度
+- feat: |UI| 邮件时间显示浏览器时区，可在设置中切换显示为 UTC 时间
+- feat: 支持转移邮件到其他用户
+
+## v0.7.6
+
+### Breaking Changes
+
+UI 部署 worker 需要点击 Settings -> Runtime, 修改 Compatibility flags, 增加 `nodejs_compat`
+
+![worker-runtime](vitepress-docs/docs/public/ui_install/worker-runtime.png)
+
+### Changes
+
+- feat: 支持提前设置 bot info, 降低 telegram 回调延迟 (#441)
+- feat: 增加 telegram mini app 的 build 压缩包
+- feat: 增加是否启用垃圾邮件检查 `ENABLE_CHECK_JUNK_MAIL` 配置
+
 ## v0.7.5
 
 - fix: 修复 `name` 的校验检查

@@ -42,6 +42,8 @@ export type Bindings = {
     DISABLE_SHOW_GITHUB: string | boolean | undefined
     FORWARD_ADDRESS_LIST: string | string[] | undefined
 
+    ENABLE_CHECK_JUNK_MAIL: string | boolean | undefined
+
     // s3 config
     S3_ENDPOINT: string | undefined
     S3_ACCESS_KEY_ID: string | undefined
@@ -60,6 +62,10 @@ export type Bindings = {
     // telegram config
     TELEGRAM_BOT_TOKEN: string
     TG_MAX_ADDRESS: number | undefined
+    TG_BOT_INFO: string | object | undefined
+
+    // webhook config
+    FRONTEND_URL: string | undefined
 }
 
 type JwtPayload = {

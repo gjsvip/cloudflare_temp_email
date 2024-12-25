@@ -61,8 +61,8 @@ pnpm run deploy
 ```toml
 name = "cloudflare_temp_email"
 main = "src/worker.ts"
-compatibility_date = "2023-08-14"
-node_compat = true
+compatibility_date = "2024-09-23"
+compatibility_flags = [ "nodejs_compat" ]
 
 # enable cron if you want set auto clean up
 # [triggers]
@@ -124,8 +124,14 @@ ENABLE_AUTO_REPLY = false
 # CF_TURNSTILE_SECRET_KEY = ""
 # telegram bot
 # TG_MAX_ADDRESS = 5
+# telegram bot info, predefined bot info can reduce latency of the webhook
+# TG_BOT_INFO = "{}"
 # global forward address list, if set, all emails will be forwarded to these addresses
 # FORWARD_ADDRESS_LIST = ["xxx@xxx.com"]
+# Frontend URL
+# FRONTEND_URL = "https://xxxx.xxx"
+# Enable check junk mail
+# ENABLE_CHECK_JUNK_MAIL = false
 
 [[d1_databases]]
 binding = "DB"
